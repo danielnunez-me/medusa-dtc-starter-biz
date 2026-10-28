@@ -1,22 +1,22 @@
 FROM node:22.23.4-bookworm-slim
 
+# Configurar pnpm
 ENV PNPM_HOME=/pnpm
 ENV PATH="$PNPM_HOME:$PATH"
 WORKDIR /app
-
 RUN corepack enable && corepack prepare pnpm@10.11.1 --activate
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
-COPY pnpm-workspace.yaml ./
-COPY apps/backend/package.json ./apps/backend/package.json
-COPY apps/storefront/package.json ./apps/storefront/package.json
-
+# Copiar todo el monorepo para resolver el workspace correctamente
 COPY . .
 
+# Instalar dependencias (ignorando errores de sincronización del lockfile)
 RUN pnpm install --no-frozen-lockfile
-RUN cd /app/apps/backend && NODE_ENV=development pnpm run build
 
+# Construir el backend y el panel de administración
+RUN pnpm --dir apps/backend run build
+
+# Exponer el puerto
 EXPOSE 9000
 
-CMD ["sh", "-lc", "cd /app/apps/backend && NODE_ENV=production pnpm run start"]
+# Iniciar el servidor
+CMD ["pnpm", "--dir", "apps/backend", "run", "start"]
