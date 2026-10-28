@@ -10,11 +10,12 @@ COPY package.json ./
 COPY pnpm-lock.yaml ./
 COPY pnpm-workspace.yaml ./
 COPY apps/backend/package.json ./apps/backend/package.json
+COPY apps/storefront/package.json ./apps/storefront/package.json
 
 COPY . .
 
 RUN pnpm install --no-frozen-lockfile
-RUN pnpm --dir apps/backend run build
+RUN cd /app/apps/backend && NODE_ENV=development pnpm run build
 
 EXPOSE 9000
 
