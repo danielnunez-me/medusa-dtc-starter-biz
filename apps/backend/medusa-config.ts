@@ -14,6 +14,6 @@ module.exports = defineConfig({
     }
   },
   admin: {
-    disable: true // Añade esto temporalmente
+     // disable: true Añade esto temporalmente
   }
 })
