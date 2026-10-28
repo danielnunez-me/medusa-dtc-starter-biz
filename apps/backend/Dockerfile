@@ -12,7 +12,7 @@ ENV NODE_ENV=development
 RUN pnpm install --no-frozen-lockfile
 
 # 2. Compilar (ahora sí encontrará las herramientas del admin)
-RUN pnpm --dir apps/backend run build
+RUN pnpm --dir apps/backend exec medusa build
 
 # 3. Cambiar a producción para el entorno de ejecución
 ENV NODE_ENV=production
