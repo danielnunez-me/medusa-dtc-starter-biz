@@ -6,12 +6,6 @@ WORKDIR /app
 
 RUN corepack enable && corepack prepare pnpm@10.11.1 --activate
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
-COPY pnpm-workspace.yaml ./
-COPY apps/backend/package.json ./apps/backend/package.json
-COPY apps/storefront/package.json ./apps/storefront/package.json
-
 COPY . .
 
 RUN pnpm install --no-frozen-lockfile
