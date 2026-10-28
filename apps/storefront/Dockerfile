@@ -41,8 +41,8 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=8000
 EXPOSE 8000
 
-COPY --from=builder /app/apps/storefront/public ./apps/storefront/public
+COPY --from=builder /app/apps/storefront/public ./public
 COPY --from=builder /app/apps/storefront/.next/standalone ./
-COPY --from=builder /app/apps/storefront/.next/static ./apps/storefront/.next/static
+COPY --from=builder /app/apps/storefront/.next/static ./.next/static
 
-CMD ["node", "apps/storefront/server.js"]
+CMD ["node", "server.js"]
